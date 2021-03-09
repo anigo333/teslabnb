@@ -1,0 +1,624 @@
+{
+  "description": "",
+  "templateSettings": [
+    {
+      "name": "Public Datacenters",
+      "hinting": {
+        "hintType": 3,
+        "hardCodedList": [],
+        "metricPath": {
+          "account": "",
+          "namespace": "",
+          "metric": ""
+        },
+        "metricDimension": "",
+        "kustoQuery": {
+          "query": "WACDatacenters\n| where Customers == \"Public\" and BuildStatus == \"Live\" and Datacenter !endswith \"C\"\n| summarize array_strcat(make_list(Datacenter),\",\")",
+          "cluster": "https://wacprod.kusto.windows.net",
+          "database": "wacshared"
+        },
+        "patternFilter": "*"
+      },
+      "overrides": [
+        {
+          "query": "//widgets[guid='6ba9be67-845d-44bb-b23e-f6c44e383421']//*[id='Datacenter']",
+          "key": "value",
+          "replacement": ""
+        }
+      ],
+      "defaultValue": "",
+      "allowAll": true,
+      "isReadonly": false
+    },
+    {
+      "name": "Golocal",
+      "hinting": {
+        "hintType": 3,
+        "hardCodedList": [],
+        "metricPath": {
+          "account": "",
+          "namespace": "",
+          "metric": ""
+        },
+        "metricDimension": "",
+        "kustoQuery": {
+          "query": "WACDatacenters\n| where Customers == \"GoLocal\" and BuildStatus == \"Live\" and Datacenter !endswith \"C\"\n| summarize array_strcat(make_list(Datacenter),\",\")",
+          "cluster": "https://wacprod.kusto.windows.net",
+          "database": "wacshared"
+        },
+        "patternFilter": "*"
+      },
+      "overrides": [
+        {
+          "query": "//widgets[guid='424915a2-4b62-49b8-9bb2-0a3cf2a63ce5']//*[id='Datacenter']",
+          "key": "value",
+          "replacement": ""
+        }
+      ],
+      "defaultValue": "",
+      "allowAll": true,
+      "isReadonly": false
+    }
+  ],
+  "tags": [],
+  "content": {
+    "path": {
+      "path": "./mdm",
+      "name": "MDMSavedProfile"
+    },
+    "wires": {
+      "widgets": [
+        {
+          "path": {
+            "path": "./xts",
+            "name": "XTSGrid"
+          },
+          "wires": {
+            "view": {
+              "separateYAxes": false,
+              "xAxisDimensions": [],
+              "yAxisDimensions": [],
+              "showLegend": true,
+              "showTooltip": true,
+              "yAxisMin": null,
+              "yAxisMax": null,
+              "decimals": 2,
+              "yAxisType": "linear",
+              "chartType": "line",
+              "sortType": "valueDesc",
+              "threshold": {
+                "thresholds": [
+                  {
+                    "value": null,
+                    "above": "",
+                    "color": "",
+                    "label": ""
+                  }
+                ]
+              },
+              "biggerIsBetter": null,
+              "summarize": false,
+              "showSource": false,
+              "rotateColumns": true,
+              "onSelectColumnName": "",
+              "hiddenColumns": [],
+              "colorMapping": {
+                "defaultColor": "#FFFFFF",
+                "colorStops": [
+                  {
+                    "value": 0,
+                    "color": "#FFAA00"
+                  },
+                  {
+                    "value": 100,
+                    "color": "#C94332"
+                  }
+                ],
+                "colorStopType": "percentile"
+              },
+              "showValues": false,
+              "mergeLayers": false,
+              "compareInline": false,
+              "gridSorting": {
+                "3/2/2021, 00:00:00": {
+                  "order": 2,
+                  "priority": 1
+                }
+              },
+              "splitDimensionColumns": false,
+              "tooltipSum": true,
+              "showSparklinesSummary": true,
+              "textSize": 0.5,
+              "comparisonType": "both",
+              "stacking": "",
+              "groupTooltip": true
+            },
+            "data": {
+              "startTime": -2592000000,
+              "endTime": -1,
+              "cutoffTime": true,
+              "maxTimePoints": 499.5,
+              "minTimeWindow": 2592000000,
+              "refreshTick": 1615257936075,
+              "compareTimeframe": "",
+              "mdm": [
+                {
+                  "dataSources": [
+                    {
+                      "name": "s0",
+                      "account": "OfficeWacProd",
+                      "namespace": "SessionActivities",
+                      "metric": "SessionBoots",
+                      "samplingType": "TotalCount",
+                      "preAggregation": "$MSTORE_PREAGGREGATE",
+                      "conditions": [
+                        {
+                          "id": "Datacenter",
+                          "value": "PAU1,BR2,PBR1,PUS1,PHK1,PUS4,PUS8,PUS3,PJP1,PIE1,PUS6,PSG3,PSG4,SG1,PUS5,PNL1,US1,PUS7",
+                          "free": false,
+                          "regex": "*",
+                          "exclusions": [],
+                          "isOutput": true
+                        }
+                      ],
+                      "filters": [],
+                      "limit": {
+                        "top": 300,
+                        "order": "Descending",
+                        "metric": null
+                      },
+                      "vips": null,
+                      "useMetricsStore": false,
+                      "filter": {
+                        "baseValue": 0,
+                        "aggregator": "",
+                        "filter": "GreaterThan"
+                      },
+                      "nullDataBehavior": "zero"
+                    }
+                  ],
+                  "expression": "",
+                  "seriesNaming": "{Datacenter}",
+                  "aggregationMethod": "",
+                  "layerType": "",
+                  "resolution": 1,
+                  "displayOptions": {
+                    "color": "#1FAEFF",
+                    "seriesType": "",
+                    "seriesStyle": "Solid",
+                    "units": "",
+                    "name": "Stage1",
+                    "threshold": {
+                      "thresholds": [
+                        {
+                          "value": null,
+                          "above": "",
+                          "color": "",
+                          "label": ""
+                        }
+                      ]
+                    },
+                    "decimals": null,
+                    "axisSide": "left"
+                  },
+                  "index": 0
+                },
+                {
+                  "dataSources": [
+                    {
+                      "name": "s0",
+                      "account": "OfficeWacProd",
+                      "namespace": "SessionActivities",
+                      "metric": "SessionBoots",
+                      "samplingType": "TotalCount",
+                      "preAggregation": "$MSTORE_PREAGGREGATE",
+                      "conditions": [
+                        {
+                          "id": "Datacenter",
+                          "value": "PAU1,BR2,PBR1,PUS1,PHK1,PUS4,PUS8,PUS3,PJP1,PIE1,PUS6,PSG3,PSG4,SG1,PUS5,PNL1,US1,PUS7",
+                          "free": false,
+                          "regex": "*",
+                          "exclusions": [],
+                          "isOutput": true
+                        }
+                      ],
+                      "filters": [],
+                      "limit": {
+                        "top": 300,
+                        "order": "Descending",
+                        "metric": null
+                      },
+                      "vips": null,
+                      "useMetricsStore": false,
+                      "filter": {
+                        "baseValue": 0,
+                        "aggregator": "",
+                        "filter": "GreaterThan"
+                      },
+                      "nullDataBehavior": "zero"
+                    }
+                  ],
+                  "expression": "",
+                  "seriesNaming": "{Datacenter}",
+                  "aggregationMethod": "",
+                  "layerType": "",
+                  "resolution": 1,
+                  "displayOptions": {
+                    "color": "#f5a300",
+                    "seriesType": "",
+                    "seriesStyle": "Solid",
+                    "units": "",
+                    "name": "Stage2",
+                    "threshold": {
+                      "thresholds": [
+                        {
+                          "value": null,
+                          "above": "",
+                          "color": "",
+                          "label": ""
+                        }
+                      ]
+                    },
+                    "decimals": null,
+                    "axisSide": "left"
+                  },
+                  "index": 1
+                },
+                {
+                  "dataSources": [
+                    {
+                      "name": "s0",
+                      "account": "OfficeWacProd",
+                      "namespace": "SessionActivities",
+                      "metric": "SessionBoots",
+                      "samplingType": "TotalCount",
+                      "preAggregation": "$MSTORE_PREAGGREGATE",
+                      "conditions": [
+                        {
+                          "id": "Datacenter",
+                          "value": "PAU1,BR2,PBR1,PUS1,PHK1,PUS4,PUS8,PUS3,PJP1,PIE1,PUS6,PSG3,PSG4,SG1,PUS5,PNL1,US1,PUS7",
+                          "free": false,
+                          "regex": "*",
+                          "exclusions": [],
+                          "isOutput": true
+                        }
+                      ],
+                      "filters": [],
+                      "limit": {
+                        "top": 300,
+                        "order": "Descending",
+                        "metric": null
+                      },
+                      "vips": null,
+                      "useMetricsStore": false,
+                      "filter": {
+                        "baseValue": 0,
+                        "aggregator": "",
+                        "filter": "GreaterThan"
+                      },
+                      "nullDataBehavior": "zero"
+                    }
+                  ],
+                  "expression": "",
+                  "seriesNaming": "{Datacenter}",
+                  "aggregationMethod": "",
+                  "layerType": "",
+                  "resolution": 1,
+                  "displayOptions": {
+                    "color": "#4dba00",
+                    "seriesType": "",
+                    "seriesStyle": "Solid",
+                    "units": "",
+                    "name": "Stage3",
+                    "threshold": {
+                      "thresholds": [
+                        {
+                          "value": null,
+                          "above": "",
+                          "color": "",
+                          "label": ""
+                        }
+                      ]
+                    },
+                    "decimals": null,
+                    "axisSide": "left"
+                  },
+                  "index": 2
+                }
+              ]
+            },
+            "drilldown": {
+              "account": "",
+              "drilldownType": 0,
+              "namespace": "",
+              "profile": "",
+              "link": "",
+              "path": [
+                "OfficeWacProd",
+                "Dashboards",
+                "PROD Landing Page"
+              ],
+              "title": "",
+              "widgets": [
+                "9950ca99-3832-4a0f-bed7-4954dbfe7983"
+              ],
+              "dimensions": [
+                ""
+              ]
+            },
+            "title": "Public Datacenters",
+            "width": 1,
+            "workflow": [],
+            "description": "",
+            "__ignoreOverrides": false
+          },
+          "guid": "424915a2-4b62-49b8-9bb2-0a3cf2a63ce5"
+        },
+        {
+          "path": {
+            "path": "./xts",
+            "name": "SummaryNumber"
+          },
+          "wires": {
+            "view": {
+              "separateYAxes": false,
+              "xAxisDimensions": [],
+              "yAxisDimensions": [],
+              "showLegend": true,
+              "showTooltip": true,
+              "yAxisMin": null,
+              "yAxisMax": null,
+              "decimals": 2,
+              "yAxisType": "linear",
+              "chartType": "line",
+              "sortType": "valueDesc",
+              "threshold": {
+                "thresholds": [
+                  {
+                    "value": null,
+                    "above": "",
+                    "color": "",
+                    "label": ""
+                  }
+                ]
+              },
+              "biggerIsBetter": null,
+              "summarize": true,
+              "showSource": false,
+              "rotateColumns": false,
+              "onSelectColumnName": "",
+              "hiddenColumns": [
+                {
+                  "name": "Mean",
+                  "source": "Public Datacenters"
+                },
+                {
+                  "name": "Max",
+                  "source": "Public Datacenters"
+                },
+                {
+                  "name": "Min",
+                  "source": "Public Datacenters"
+                }
+              ],
+              "colorMapping": {
+                "defaultColor": "#FFFFFF",
+                "colorStops": [
+                  {
+                    "value": 0,
+                    "color": "#FFAA00"
+                  },
+                  {
+                    "value": 100,
+                    "color": "#C94332"
+                  }
+                ],
+                "colorStopType": "percentile"
+              },
+              "showValues": false,
+              "mergeLayers": false,
+              "compareInline": false,
+              "gridSorting": {},
+              "splitDimensionColumns": false,
+              "tooltipSum": true,
+              "showSparklinesSummary": true,
+              "textSize": 0.5,
+              "comparisonType": "both",
+              "stacking": "",
+              "groupTooltip": true
+            },
+            "data": {
+              "startTime": -2592000000,
+              "endTime": -1,
+              "cutoffTime": true,
+              "maxTimePoints": 640,
+              "minTimeWindow": 2592000000,
+              "refreshTick": 1615254101553,
+              "compareTimeframe": "",
+              "mdm": [
+                {
+                  "dataSources": [
+                    {
+                      "name": "s0",
+                      "account": "OfficeWacProd",
+                      "namespace": "SessionActivities",
+                      "metric": "SessionBoots",
+                      "samplingType": "TotalCount",
+                      "preAggregation": "$MSTORE_PREAGGREGATE",
+                      "conditions": [
+                        {
+                          "id": "Datacenter",
+                          "value": "AE3,AU4,CA3,CA4,CH3,DE5,EU7,FR4,GAU1,GAU2,GBR1,GEU2,GEU3,GEU4,GEU5,GEU6,GEU7,GEU8,GEU9,GFR1,GJP1,GJP2,GUK1,GUK2,GUK3,GUK4,GUK5,GZA1,IN3,IN4,KR3,KR4,NO4,PCA1,PFR1,PFR2,PSG1,PSG2,SG3,SG4,UK4,ZA3",
+                          "free": false,
+                          "regex": "*",
+                          "exclusions": [],
+                          "isOutput": true
+                        }
+                      ],
+                      "filters": [],
+                      "limit": {
+                        "top": 300,
+                        "order": "Descending",
+                        "metric": null
+                      },
+                      "vips": null,
+                      "useMetricsStore": false,
+                      "filter": {
+                        "baseValue": 0,
+                        "aggregator": "",
+                        "filter": "GreaterThan"
+                      },
+                      "nullDataBehavior": "zero"
+                    }
+                  ],
+                  "expression": "",
+                  "seriesNaming": "",
+                  "aggregationMethod": "",
+                  "layerType": "",
+                  "resolution": 1,
+                  "displayOptions": {
+                    "color": "#1FAEFF",
+                    "seriesType": "",
+                    "seriesStyle": "Solid",
+                    "units": "",
+                    "name": "GoLocals",
+                    "threshold": {
+                      "thresholds": [
+                        {
+                          "value": null,
+                          "above": "",
+                          "color": "",
+                          "label": ""
+                        }
+                      ]
+                    },
+                    "decimals": null,
+                    "axisSide": "left"
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "drilldown": {
+              "account": "",
+              "drilldownType": 0,
+              "namespace": "",
+              "profile": "",
+              "link": "",
+              "path": [
+                "OfficeWacProd",
+                "Dashboards",
+                "PROD Landing Page"
+              ],
+              "title": "",
+              "widgets": [
+                "424915a2-4b62-49b8-9bb2-0a3cf2a63ce5"
+              ],
+              "dimensions": [
+                ""
+              ]
+            },
+            "title": "GoLocal Datacenters",
+            "width": 1,
+            "workflow": [],
+            "description": "",
+            "__ignoreOverrides": false
+          },
+          "guid": "9950ca99-3832-4a0f-bed7-4954dbfe7983"
+        }
+      ],
+      "globalStartTime": -2592000000,
+      "globalEndTime": -1,
+      "presentationMode": false,
+      "pinGlobalTimeRange": false,
+      "refreshTick": 1615253220921,
+      "pendingWidgets": [],
+      "literalDashboard": {
+        "description": "",
+        "tags": [],
+        "templateSettings": [
+          {
+            "name": "Public Datacenters",
+            "hinting": {
+              "hintType": 3,
+              "hardCodedList": [],
+              "metricPath": {
+                "account": "",
+                "namespace": "",
+                "metric": ""
+              },
+              "metricDimension": "",
+              "kustoQuery": {
+                "query": "WACDatacenters\n| where Customers == \"Public\" and BuildStatus == \"Live\" and Datacenter !endswith \"C\"\n| summarize array_strcat(make_list(Datacenter),\",\")",
+                "cluster": "https://wacprod.kusto.windows.net",
+                "database": "wacshared"
+              },
+              "patternFilter": "*"
+            },
+            "overrides": [
+              {
+                "query": "//widgets[guid='6ba9be67-845d-44bb-b23e-f6c44e383421']//*[id='Datacenter']",
+                "key": "value",
+                "replacement": ""
+              }
+            ],
+            "defaultValue": "",
+            "allowAll": true,
+            "isReadonly": false
+          },
+          {
+            "name": "Golocal",
+            "hinting": {
+              "hintType": 3,
+              "hardCodedList": [],
+              "metricPath": {
+                "account": "",
+                "namespace": "",
+                "metric": ""
+              },
+              "metricDimension": "",
+              "kustoQuery": {
+                "query": "WACDatacenters\n| where Customers == \"GoLocal\" and BuildStatus == \"Live\" and Datacenter !endswith \"C\"\n| summarize array_strcat(make_list(Datacenter),\",\")",
+                "cluster": "https://wacprod.kusto.windows.net",
+                "database": "wacshared"
+              },
+              "patternFilter": "*"
+            },
+            "overrides": [
+              {
+                "query": "//widgets[guid='424915a2-4b62-49b8-9bb2-0a3cf2a63ce5']//*[id='Datacenter']",
+                "key": "value",
+                "replacement": ""
+              }
+            ],
+            "defaultValue": "",
+            "allowAll": true,
+            "isReadonly": false
+          }
+        ],
+        "sharedWith": [],
+        "seriesColorScheme": []
+      }
+    },
+    "guid": "13133161-97f4-4f5b-b03f-64d6d11cd463",
+    "layout": {
+      "managerClassName": "FlowLayoutManager",
+      "children": [
+        {
+          "width": "100%",
+          "element": "424915a2-4b62-49b8-9bb2-0a3cf2a63ce5"
+        },
+        {
+          "width": "100%",
+          "element": "9950ca99-3832-4a0f-bed7-4954dbfe7983"
+        }
+      ],
+      "layoutConfig": {
+        "seriesColorScheme": []
+      }
+    }
+  },
+  "sharedWith": [],
+  "account": "User/anigo",
+  "path": "SDP/DC%20Mappimg"
+}
